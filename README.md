@@ -1,7 +1,6 @@
 # PySpark NLP Pipeline
 
 PySpark 환경을 위한 Skew handling 및 NLP 전처리 파이프라인 라이브러리입니다.
-`tomli` 의존성을 제거하고 가벼운 구조로 변경되었습니다.
 
 ## 📁 프로젝트 구조
 
