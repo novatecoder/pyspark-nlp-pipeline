@@ -1,39 +1,35 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyspark-nlp-skew-pipeline"
+name = "pyspark-nlp-pipeline"
 version = "0.1.0"
-description = "High-performance PySpark NLP Pipeline with Skew Handling"
+description = "A comprehensive PySpark NLP pipeline and ETL library"
 readme = "README.md"
-requires-python = ">=3.9"
-license = "Apache-2.0"
+requires-python = ">=3.8"
 authors = [
     { name = "wonhyeok kim", email = "novatecoder@gmail.com" }
 ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
 dependencies = [
-    "pyspark>=3.5.0",
-    "tomli>=2.0.1"
+    "pyspark>=3.0.0",
+    "click>=8.0",
 ]
 
-# [중요] src 레이아웃 아래의 패키지 이름 명시
-[tool.hatch.build.targets.wheel]
-packages = ["src/pyspark_nlp_skew_pipeline"]
-
-[project.scripts]
-# cli.py의 main 함수를 실행
-run-pipeline = "pyspark_nlp_skew_pipeline.cli:main"
-
-[dependency-groups]
+[project.optional-dependencies]
 dev = [
-    "pytest>=7.0.0"
+    "pytest",
+    "black",
+    "isort",
 ]
 
-# [라이브러리 설정] 기본 하이퍼파라미터
-[tool.pipeline_config]
-app_name = "SkewOptimizationLib"
-salt_partitions = 20
-shuffle_partitions = 200
-input_format = "csv"
-output_format = "parquet"
+# CLI 설정: 터미널 명령어 이름도 변경됨
+[project.scripts]
+pyspark-nlp-pipeline = "pyspark_nlp_pipeline.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

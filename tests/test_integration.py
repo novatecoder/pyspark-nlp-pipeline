@@ -30,7 +30,7 @@ def create_skewed_input_data(spark):
 
 def test_package_structure_and_pipeline(setup_teardown):
     """
-    변경된 패키지 구조(src/pyspark_nlp_skew_pipeline)가 정상 작동하는지 확인
+    패키지 구조(src/pyspark_nlp_pipeline)가 정상 작동하는지 확인
     """
     # 1. Config 없이 초기화 (기본값 사용 테스트)
     pipeline = SkewedNLPPipeline(config_path=None)
