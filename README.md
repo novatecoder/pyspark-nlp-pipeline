@@ -34,6 +34,15 @@ pip install -e .
 pip install -e ".[dev]"
 ```
 
+## 🧪 테스트 방법 (Testing)
+
+`pytest`를 사용하여 통합 테스트를 실행합니다.
+
+```bash
+pytest -vv
+```
+
+
 ## 💻 실행 방법 (Usage)
 
 ### 1\. CLI로 실행하기
@@ -74,10 +83,3 @@ processed_df = pipeline.process_data(df)
 pipeline.save_data(processed_df, "./data/output")
 ```
 
-## 🧪 테스트 방법 (Testing)
-
-`pytest`를 사용하여 통합 테스트를 실행합니다.
-
-```bash
-pytest -vv
-```

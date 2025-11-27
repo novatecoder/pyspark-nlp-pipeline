@@ -1,7 +1,7 @@
 import sys
 import os
 import click
-from .etl import SkewedNLPPipeline
+from .etl import NLPPipeline
 
 @click.command()
 @click.option('--input-path', default='./data/input', help='Path to input data CSV')
@@ -19,7 +19,7 @@ def main(input_path, output_path, salt_partitions, shuffle_partitions):
         "shuffle_partitions": shuffle_partitions
     }
     
-    pipeline = SkewedNLPPipeline(config=config)
+    pipeline = NLPPipeline(config=config)
     
     print(f"[{pipeline.config.get('app_name')}] Starting Pipeline...")
     print(f"Input: {input_path}")

@@ -1,7 +1,7 @@
 import pytest
 import os
 import shutil
-from pyspark_nlp_pipeline import SkewedNLPPipeline
+from pyspark_nlp_pipeline import NLPPipeline
 
 TEMP_INPUT_DIR = "./data/test_input"
 TEMP_OUTPUT_DIR = "./data/test_output"
@@ -33,8 +33,7 @@ def test_package_structure_and_pipeline(setup_teardown):
     패키지 구조(src/pyspark_nlp_pipeline)가 정상 작동하는지 확인
     """
     # 1. Config 없이 초기화 (기본값 사용 테스트)
-    # [수정] config_path 인자 제거, 필요시 config={} 전달
-    pipeline = SkewedNLPPipeline()
+    pipeline = NLPPipeline()
     
     # 2. 데이터 생성
     create_skewed_input_data(pipeline.spark)

@@ -1,3 +1,3 @@
-from .etl import SkewedNLPPipeline
+from .etl import NLPPipeline
 
-__all__ = ["SkewedNLPPipeline"]
+__all__ = ["NLPPipeline"]

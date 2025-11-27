@@ -3,7 +3,7 @@ from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql import functions as F
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 
-class SkewedNLPPipeline:
+class NLPPipeline:
     # 기본 설정값
     DEFAULT_CONFIG = {
         "app_name": "DefaultSkewPipeline",
