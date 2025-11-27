@@ -18,6 +18,7 @@ classifiers = [
 dependencies = [
     "pyspark>=3.0.0",
     "click>=8.0",
+    # tomli 제거됨
 ]
 
 [project.optional-dependencies]
@@ -27,7 +28,6 @@ dev = [
     "isort",
 ]
 
-# CLI 설정: 터미널 명령어 이름도 변경됨
 [project.scripts]
 pyspark-nlp-pipeline = "pyspark_nlp_pipeline.cli:main"
 

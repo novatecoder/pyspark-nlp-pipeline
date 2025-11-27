@@ -1,26 +1,33 @@
 import sys
 import os
+import click
 from .etl import SkewedNLPPipeline
 
-def main():
+@click.command()
+@click.option('--input-path', default='./data/input', help='Path to input data CSV')
+@click.option('--output-path', default='./data/output', help='Path to save processed Parquet data')
+@click.option('--salt-partitions', default=10, help='Number of partitions for salting (skew handling)')
+@click.option('--shuffle-partitions', default=200, help='Spark shuffle partitions')
+def main(input_path, output_path, salt_partitions, shuffle_partitions):
     """
-    CLI 실행 함수
-    명령어: run-pipeline
+    PySpark NLP Pipeline CLI 실행
     """
-    # 라이브러리로 설치되었을 때 현재 위치의 pyproject.toml을 찾기 위한 로직
-    config_path = "pyproject.toml" if os.path.exists("pyproject.toml") else None
+    # 설정 딕셔너리 구성
+    config = {
+        "app_name": "SkewedNLPPipelineCLI",
+        "salt_partitions": salt_partitions,
+        "shuffle_partitions": shuffle_partitions
+    }
     
-    pipeline = SkewedNLPPipeline(config_path)
+    pipeline = SkewedNLPPipeline(config=config)
     
-    input_path = "./data/input"
-    output_path = "./data/output"
-
     print(f"[{pipeline.config.get('app_name')}] Starting Pipeline...")
+    print(f"Input: {input_path}")
+    print(f"Output: {output_path}")
 
     try:
-        if not os.path.exists(input_path):
-            print(f"Error: Input path '{input_path}' not found.")
-            return
+        if not os.path.exists(input_path) and not input_path.startswith("file://") and not input_path.startswith("hdfs://") and not input_path.startswith("s3://"):
+             print(f"Warning: Local input path '{input_path}' not found. Spark might fail if scheme is not provided.")
 
         df = pipeline.read_data(input_path)
         processed_df = pipeline.process_data(df)
@@ -31,7 +38,7 @@ def main():
     except Exception as e:
         print(f"Pipeline Failed: {e}")
         pipeline.spark.stop()
-        raise
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
